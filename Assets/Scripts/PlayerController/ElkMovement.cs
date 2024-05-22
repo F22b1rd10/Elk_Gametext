@@ -6,6 +6,10 @@ public class ElkMovement : MonoBehaviour
 {
     private ElkController movementController;
     private Rigidbody2D movementRigidbody;
+    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer angleElkSprite;
+
+    public GameObject angelElk;
 
     private Vector2 movementDirection = Vector2.zero;
 
@@ -13,6 +17,8 @@ public class ElkMovement : MonoBehaviour
     {
         movementController = GetComponent<ElkController>();
         movementRigidbody = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        angleElkSprite = angelElk.GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -20,7 +26,7 @@ public class ElkMovement : MonoBehaviour
         movementController.OnMoveEvent += Move;
     }
 
-    // °í¶ó´Ï°¡ È­¸é ¹ÛÀ¸·Î ¾È³ª°¡µµ·Ï ¹üÀ§ Á¶Á¤
+    // ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     void Update()
     {
         float x = transform.position.x;
@@ -44,6 +50,17 @@ public class ElkMovement : MonoBehaviour
             y = -4.0f;
         }
         transform.position = new Vector2(x, y);
+
+        if(GameManager.Instance.isItem1Active)
+        {
+            spriteRenderer.enabled = false;
+            angelElk.SetActive(true);
+        }
+        else if(!GameManager.Instance.isItem1Active)
+        {
+            spriteRenderer.enabled = true;
+            angelElk.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
@@ -54,6 +71,17 @@ public class ElkMovement : MonoBehaviour
     private void Move(Vector2 direction)
     {
         movementDirection = direction;
+
+        if(direction.x < 0)
+        {
+            spriteRenderer.flipX = true;
+            angleElkSprite.flipX = true;
+        }
+        else if(direction.x > 0)
+        {
+            spriteRenderer.flipX = false;
+            angleElkSprite.flipX = false;
+        }
     }
 
     private void ApplyMovement(Vector2 direction)

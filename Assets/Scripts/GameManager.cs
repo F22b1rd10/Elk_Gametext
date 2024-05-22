@@ -29,6 +29,13 @@ public class GameManager : MonoBehaviour
     public Text NowScore;
     public Text BestScore;
 
+    public bool isItem1Active = false;
+    public bool isItem2Active = false;
+
+    public int item1Hav = 1;
+    public int item2Hav = 1;
+    public int item3Hav = 1;
+
     bool isPlay = true;
 
     float gameTime = 0f;
@@ -56,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         gameTime += Time.deltaTime;
 
-        InvokeRepeating("MakeCar", 0.0f, 2.0f); //ÀÚµ¿Â÷°¡ ·£´ýÀ¸·Î ³ª¿Â´Ù.
+        InvokeRepeating("MakeCar", 0.0f, 2.0f); //ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½.
     }
 
     void Update()
@@ -68,21 +75,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //ÀÚµ¿Â÷ È£ÃâÇÏ´Â ¸Þ¼­µå
+    //ï¿½Úµï¿½ï¿½ï¿½ È£ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½
     void MakeCar()
     {
-        float p = Random.Range(0, 10);  //ÁÖ±âÀûÀ¸·Î Â÷°¡ µîÀåÇÔ
+        float p = Random.Range(0, 10);  //ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (p < 3) Instantiate(BlueCar);
         else if (p >= 3 && p < 7) Instantiate(PurpleCar);
         else if (p >= 7) Instantiate(YellowCar);
 
-        if(time >= 20) // °¡²û¾¿ ¿ÀÅä¹ÙÀÌ°¡ µîÀåÇÔ
+        if(time >= 20) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             float r = Random.Range(0, 30);
             if (r < 10) Instantiate(motorbikeblack);
             if (r > 20) Instantiate(MotorBikeRed);
         }
-        if(time >= 40) // °¡²û¾¿ ´ýÇÁÆ®·°ÀÌ³ª ºÒµµÀú°¡ µîÀåÇÔ
+        if(time >= 40) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ì³ï¿½ ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
             float t = Random.Range(0, 30);
             if (t < 5) Instantiate(Bulldozer);
@@ -91,45 +98,45 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //°ÔÀÓ Á¾·á µÆÀ» ½Ã
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     public void GameOver()
     {
         float overTime = 0;
         isPlay = false;
-        Time.timeScale = 0.0f; //°ÔÀÓ Á¾·á Ã³¸®
-        NowScore.text = time.ToString("N2"); //¹öÆ¾ ½Ã°£ ¸¸Å­ ÇöÀç ±â·Ï¿¡ Ç¥½Ã
+        Time.timeScale = 0.0f; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+        NowScore.text = time.ToString("N2"); //ï¿½ï¿½Æ¾ ï¿½Ã°ï¿½ ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ Ç¥ï¿½ï¿½
 
-        //ÃÖ°í Á¡¼ö°¡ ÀÖ´Ù¸é
+        //ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
         if (PlayerPrefs.HasKey(key))
         {
             float best = PlayerPrefs.GetFloat(key);
-            if (best < time) //ÇöÀç Á¡¼ö°¡ ÃÖ°í Á¡¼öº¸´Ù ³ôÀ» °æ¿ì
+            if (best < time) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             {
-                PlayerPrefs.SetFloat(key, time); //ÇöÀç Á¡¼ö¸¦ ÃÖ°í Á¡¼ö¿¡ ÀúÀå
-                BestScore.text = time.ToString("N2"); //ÇöÀç Á¡¼ö¸¦ ÃÖ°í Á¤¼ö¿¡ º¸¿©ÁØ´Ù.
+                PlayerPrefs.SetFloat(key, time); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                BestScore.text = time.ToString("N2"); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
             }
-            else //ÇöÀç Á¡¼ö°¡ ÃÖ°í Á¡¼öº¸´Ù ³·À» °æ¿ì (ÀúÀå ¾ÈÇÔ)
+            else //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
             {
-                BestScore.text = best.ToString("N2"); //ÀúÀåµÈ ÃÖ°í Á¡¼ö¸¦ º¸¿©ÁØ´Ù.
+                BestScore.text = best.ToString("N2"); //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
             }
         }
-        //ÃÖ°í Á¡¼ö°¡ ¾ø´Ù¸é
+        //ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
         else
         {
-            PlayerPrefs.SetFloat(key, time); //ÇöÀç Á¡¼ö¸¦ ÃÖ°í Á¡¼ö¿¡ ÀúÀå
-            BestScore.text = time.ToString("N2"); //ÇöÀç Á¡¼ö¸¦ ÃÖ°í Á¤¼ö¿¡ º¸¿©ÁØ´Ù.
+            PlayerPrefs.SetFloat(key, time); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            BestScore.text = time.ToString("N2"); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
         }
 
-        //ÇÃ·¹ÀÌ¾îÀÇ ½Ã°£À» ÀúÀå
+        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         PlayerPrefs.SetFloat("recordTime", time);
 
-        //°ÔÀÓÀÌ Á¾·áµÇ¸é ¿£µå ÆÇ³Ú È°¼ºÈ­   
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³ï¿½ È°ï¿½ï¿½È­   
         endPanel.SetActive(true);
     }
 
     void ScoreSet(float currentTime, string currentName)
     {
-        //ÀÏ´Ü ÇöÀç¿¡ ÀúÀåÇÏ°í ½ÃÀÛ
+        //ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ç¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         PlayerPrefs.SetString("currentName", currentName = "chan");
         PlayerPrefs.SetFloat("CurrentPlayerTime", currentTime = recordTime);
 
@@ -138,30 +145,30 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
-            //ÀúÀåµÈ ÃÖ°í Á¡¼ö¿Í ÀÌ¸§À» °¡Á®¿À±â
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             bestTime[i] = PlayerPrefs.GetFloat(i + "BestTime");
             bestName[i] = PlayerPrefs.GetString(i + "BestName");
 
-            //ÇöÀç Á¡¼ö°¡ ·©Å·¿¡ ¿À¸¦ ¼ö ÀÖÀ» ¶§
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             while (bestTime[i] < currentTime)
             {
-                //ÀÚ¸® ¹Ù²Ù±â
+                //ï¿½Ú¸ï¿½ ï¿½Ù²Ù±ï¿½
                 tmpTime = bestTime[i];
                 tmpName = bestName[i];
                 bestTime[i] = currentTime;
                 bestName[i] = currentName;
 
-                //·©Å·¿¡ ÀúÀå
+                //ï¿½ï¿½Å·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 PlayerPrefs.SetFloat(i + "BestScore", currentTime);
                 PlayerPrefs.SetString(i.ToString() + "BestName", currentName);
 
-                //´ÙÀ½ ¹Ýº¹À» À§ÇÑ ÁØºñ
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Øºï¿½
                 currentTime = tmpTime;
                 currentName = tmpName;
             }
         }
 
-        //·©Å·¿¡ ¸ÂÃç Á¡¼ö¿Í ÀÌ¸§ ÀúÀå
+        //ï¿½ï¿½Å·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < 5; i++)
         {
             PlayerPrefs.SetFloat(i + "BestScore", bestTime[i]);
@@ -169,20 +176,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //·©Å· º¸µå
+    //ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½
     public void Board()
     {
-        //ÇÃ·¹ÀÌ¾îÀÇ Á¡¼ö ÅØ½ºÆ®¸¦ ÇöÀç '³ª'ÀÇ Á¡¼ö¿¡ Ç¥½Ã
+        //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 'ï¿½ï¿½'ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
         playerScore.text = PlayerPrefs.GetString("CurrentPlayerScore");
         
 
-        //·©Å·¿¡ ¸ÂÃç ºÒ·¯¿Â Á¡¼ö Ç¥½Ã
+        //ï¿½ï¿½Å·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
         for (int i = 0; i < 5; i++)
         {
             rankScore[i] = PlayerPrefs.GetFloat(i + "BestScore");
             RankScoreText[i].text = string.Format("{0:N3}cm", rankScore[i]);
 
-            //·©Å· °­Á¶ Ç¥½Ã
+            //ï¿½ï¿½Å· ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
             if (playerScore.text == RankScoreText[i].text)
             {
                 Color Rank = new Color(255, 255, 0);

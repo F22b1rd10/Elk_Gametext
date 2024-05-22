@@ -7,9 +7,12 @@ public class Motorcycle : MonoBehaviour
     float downSpeed = 0.13f;
     float upSpeed = 0.09f;
 
+    private bool isRotation = false;
+    private float RotateSpeed = 360f;
+
     SpriteRenderer spriteRenderer;
 
-    // ÀÚµ¿Â÷°¡ ³ª¿À´Â À§Ä¡
+    // ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
     void Start()
     {
         float x = Random.Range(-2.0f, 2.0f);
@@ -25,17 +28,17 @@ public class Motorcycle : MonoBehaviour
         {
             x = 1.3f;
             transform.position = new Vector2(x, -y);
-            //¿ÀÅä¹ÙÀÌ°¡ ¿ª¹æÇâÀ¸·Î ¿Ã¶§ ÀÚµ¿Â÷ÀÇ ¹æÇâ ÀüÈ¯+µÚÁý¾î¼­ ±×¸²ÀÚ ¹æÇâ ¸ÂÃç ÁÜ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¶ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯+ï¿½ï¿½ï¿½ï¿½ï¿½î¼­ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, -180));
             spriteRenderer.flipX = true;
 
         }
     }
 
-    // Â÷°¡ °í¶ó´Ï ÂÊÀ¸·Î ÁÖÇà Áß
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     void Update()
     {
-        //Â÷°¡ ³ª¿À´Â À§Ä¡¿¡ µû¶ó Á¤ÁÖÇà
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (transform.position.x < 0.0f && transform.position.x >= -2.0f)
         {
             transform.position += Vector3.down * downSpeed;
@@ -45,7 +48,7 @@ public class Motorcycle : MonoBehaviour
             transform.position += Vector3.up * upSpeed;
         }
 
-        //Â÷°¡ È­¸é ¹ÛÀ¸·Î ³ª°¡¸é »èÁ¦
+        //ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (transform.position.y < -8.0f)
         {
             Destroy(gameObject);
@@ -54,15 +57,54 @@ public class Motorcycle : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (isRotation == true)
+        {
+            transform.Rotate(Vector3.forward, RotateSpeed * Time.deltaTime);
+        }
     }
 
-    //Â÷°¡ °í¶ó´Ï(ÇÃ·¹ÀÌ¾î)¸¦ ÃÆÀ» °æ¿ì
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Ã·ï¿½ï¿½Ì¾ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!GameManager.Instance.isItem1Active)
         {
-            //°ÔÀÓ Á¾·á ¸Þ¼­µå ½ÇÇà
-            GameManager.Instance.GameOver();
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                if (GameManager.Instance.item3Hav >= 1)
+                {
+                    GameManager.Instance.item3Hav -= 1;
+                    DestroyCar();
+                }
+
+                else
+                {
+                    GameManager.Instance.GameOver();
+                }
+            }
         }
+
+        else
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                DestroyCar();
+            }
+        }
+    }
+
+    private void DestroyCar()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        Collider2D collider = GetComponent<Collider2D>();
+
+        Destroy(collider);
+
+        rb.gravityScale = 2.0f;
+
+        Vector2 initialVelocity = new Vector2(Random.Range(-2.0f, 2.0f), Random.Range(6.0f, 10.0f));
+        rb.AddForce(initialVelocity, ForceMode2D.Impulse);
+
+        isRotation = true;
     }
 }
