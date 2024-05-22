@@ -19,28 +19,14 @@ public class DumpTruck : MonoBehaviour
         float y = 5.5f;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        if (x < -1.35f && x >= -2.0f)
+        if (x < 0.0f && x >= -2.0f)
         {
-            x = -1.95f;
+            x = -0.7f;
             transform.position = new Vector2(x, y);
         }
-        else if (x < 0.0f && x >= -1.35f)
+        else if (x <= 2.0f && x >= 0.0f)
         {
-            x = -0.75f;
-            transform.position = new Vector2(x, y);
-        }
-        else if (x < 1.35f && x >= 0.0f)
-        {
-            x = 0.75f;
-            transform.position = new Vector2(x, -y);
-            //�ڵ����� ���������� �ö� �ڵ����� ���� ��ȯ+����� �׸��� ���� ���� ��
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, -180));
-            spriteRenderer.flipX = true;
-
-        }
-        else if (x <= 2.0f && x >= 1.35f)
-        {
-            x = 1.95f;
+            x = 0.62f;
             transform.position = new Vector2(x, -y);
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, -180));
             spriteRenderer.flipX = true;

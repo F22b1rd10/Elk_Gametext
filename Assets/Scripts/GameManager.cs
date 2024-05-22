@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public GameObject BlueCar;
-    public GameObject Bulldozer;
     public GameObject DumpTruck;
     public GameObject motorbikeblack;
     public GameObject MotorBikeRed;
@@ -16,15 +15,10 @@ public class GameManager : MonoBehaviour
     public GameObject YellowCar;
 
     public GameObject endPanel;
-    public GameObject gameOverScene;
+    public GameObject UiBar;
 
-    private float[] bestTime = new float[5];
-    private float[] rankScore = new float[5];
-    public string[] bestName = new string[5];
     public float recordTime;
 
-    public Text[] RankScoreText;
-    public Text playerScore;
     public Text timeTxt;
     public Text NowScore;
     public Text BestScore;
@@ -59,9 +53,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         endPanel.SetActive(false);
-        gameOverScene.SetActive(false);
-
-        gameTime += Time.deltaTime;
+        UiBar.SetActive(true);
 
         InvokeRepeating("MakeCar", 0.0f, 2.0f); //�ڵ����� �������� ���´�.
     }
@@ -78,30 +70,23 @@ public class GameManager : MonoBehaviour
     //�ڵ��� ȣ���ϴ� �޼���
     void MakeCar()
     {
-        float p = Random.Range(0, 10);  //�ֱ������� ���� ������
-        if (p < 3) Instantiate(BlueCar);
-        else if (p >= 3 && p < 7) Instantiate(PurpleCar);
-        else if (p >= 7) Instantiate(YellowCar);
+        float p = Random.Range(0, 35);  //�ֱ������� ���� ������
+        if (p <= 10) Instantiate(BlueCar);
+        else if (p > 10 && p <= 20) Instantiate(PurpleCar);
+        else if (p > 20 && p <= 30) Instantiate(YellowCar);
+        else if (p > 30) Instantiate(DumpTruck);
 
-        if(time >= 20) // ������ ������̰� ������
+        if (time >= 20) // ������ ������̰� ������
         {
             float r = Random.Range(0, 30);
             if (r < 10) Instantiate(motorbikeblack);
             if (r > 20) Instantiate(MotorBikeRed);
         }
-        if(time >= 40) // ������ ����Ʈ���̳� �ҵ����� ������
-        {
-            float t = Random.Range(0, 30);
-            if (t < 5) Instantiate(Bulldozer);
-            if (t > 20) Instantiate(DumpTruck);
-        }
-
     }
 
     //���� ���� ���� ��
     public void GameOver()
     {
-        float overTime = 0;
         isPlay = false;
         Time.timeScale = 0.0f; //���� ���� ó��
         NowScore.text = time.ToString("N2"); //��ƾ �ð� ��ŭ ���� ��Ͽ� ǥ��
@@ -131,71 +116,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetFloat("recordTime", time);
 
         //������ ����Ǹ� ���� �ǳ� Ȱ��ȭ   
+        UiBar.SetActive(false);
         endPanel.SetActive(true);
-    }
-
-    void ScoreSet(float currentTime, string currentName)
-    {
-        //�ϴ� ���翡 �����ϰ� ����
-        PlayerPrefs.SetString("currentName", currentName = "chan");
-        PlayerPrefs.SetFloat("CurrentPlayerTime", currentTime = recordTime);
-
-        float tmpTime = 0f;
-        string tmpName = "";
-
-        for (int i = 0; i < 5; i++)
-        {
-            //����� �ְ� ������ �̸��� ��������
-            bestTime[i] = PlayerPrefs.GetFloat(i + "BestTime");
-            bestName[i] = PlayerPrefs.GetString(i + "BestName");
-
-            //���� ������ ��ŷ�� ���� �� ���� ��
-            while (bestTime[i] < currentTime)
-            {
-                //�ڸ� �ٲٱ�
-                tmpTime = bestTime[i];
-                tmpName = bestName[i];
-                bestTime[i] = currentTime;
-                bestName[i] = currentName;
-
-                //��ŷ�� ����
-                PlayerPrefs.SetFloat(i + "BestScore", currentTime);
-                PlayerPrefs.SetString(i.ToString() + "BestName", currentName);
-
-                //���� �ݺ��� ���� �غ�
-                currentTime = tmpTime;
-                currentName = tmpName;
-            }
-        }
-
-        //��ŷ�� ���� ������ �̸� ����
-        for (int i = 0; i < 5; i++)
-        {
-            PlayerPrefs.SetFloat(i + "BestScore", bestTime[i]);
-            PlayerPrefs.SetString(i.ToString() + "BestName", bestName[i]);
-        }
-    }
-
-    //��ŷ ����
-    public void Board()
-    {
-        //�÷��̾��� ���� �ؽ�Ʈ�� ���� '��'�� ������ ǥ��
-        playerScore.text = PlayerPrefs.GetString("CurrentPlayerScore");
-        
-
-        //��ŷ�� ���� �ҷ��� ���� ǥ��
-        for (int i = 0; i < 5; i++)
-        {
-            rankScore[i] = PlayerPrefs.GetFloat(i + "BestScore");
-            RankScoreText[i].text = string.Format("{0:N3}cm", rankScore[i]);
-
-            //��ŷ ���� ǥ��
-            if (playerScore.text == RankScoreText[i].text)
-            {
-                Color Rank = new Color(255, 255, 0);
-                playerScore.color = Rank;
-                RankScoreText[i].color = Rank;
-            }
-        }
     }
 }
