@@ -14,16 +14,16 @@
 
 ## 게임 소개
 ---
-### 멸종위기종인 당신을 존중하지 않는 차량들을 피하세요!
+### 1. 멸종위기종인 당신을 존중하지 않는 차량들을 피하세요!
 ![Play](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Play.png)
 
-### 진정한 존중은 공포에서 오는 법. 아이템을 사용하여 자동차들을 파괴하세요!
+### 2. 진정한 존중은 공포에서 오는 법. 아이템을 사용하여 자동차들을 파괴하세요!
 ![Item](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Item.png)
 
-### 20초를 버틸 때 마다 선택한 아이템을 받아 더욱 오래 버티자!
+### 3. 20초를 버틸 때 마다 선택한 아이템을 받아 더욱 오래 버티자!
 ![Itemselect](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Itemselect.png)
 
-### 스러져간 전설의 고라니들을 제치고 새로운 전설이 되세요!
+### 4. 스러져간 전설의 고라니들을 제치고 새로운 전설이 되세요!
 ![Rank](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Rank.png)
 
 
