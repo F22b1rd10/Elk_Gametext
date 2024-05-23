@@ -1,6 +1,7 @@
 # 고라니 차 피하기 게임
 ---
 추억의 똥 피하기 게임을 현대식으로 재해석해 만든 2D 닷지 게임입니다
+![Start](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Start.png)
 
 ## 게임 개요
 ---
@@ -10,10 +11,14 @@
 ## 게임 소개
 ---
 ### 적재적소에 아이템을 사용하여 위기를 돌파하세요!
+![Item](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Item.png)
 
 ### 20초를 버틸 때 마다 선택한 아이템을 받아 더욱 오래 버티자!
+![Itemselect](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Itemselect.png)
 
 ### 스러져간 전설의 고라니들을 제치고 새로운 전설이 되세요!
+![Rank](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Rank.png)
+
 
 ## 개발 기간
 ---
