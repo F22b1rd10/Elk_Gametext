@@ -13,7 +13,7 @@
 ## 게임 소개
 ---
 ### 멸종위기종인 당신을 존중하지 않는 차량들을 피하세요!
-
+![Play](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Play.png)
 
 ### 진정한 존중은 공포에서 오는 법. 아이템을 사용하여 자동차들을 파괴하세요!
 ![Item](https://github.com/F22b1rd10/Elk_Gametext/blob/main/Item.png)
